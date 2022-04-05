@@ -1,0 +1,25 @@
+#include <BnrOneA.h>   // Bot'n Roll ONE A library
+#include <SPI.h>       // SPI communication library required by BnrOne.cpp
+BnrOneA one;           // declaration of object variable to control the Bot'n Roll ONE A
+
+//constants definition
+#define SSPIN  2       // Slave Select (SS) pin for SPI communication
+
+void setup() 
+{
+    Serial.begin(57600);     // set baud rate to 57600bps for printing values at serial monitor.
+    one.spiConnect(SSPIN);   // start SPI communication module
+    one.stop();              // stop motors
+}
+
+void loop()
+{
+    one.obstacleEmitters(ON);          // activate IR emitter LEDs
+    Serial.println("IR Emitters ON "); // print data on serial monitor.
+    one.lcd2(" IR Emitters ON ");      // print text on LCD line 2
+    delay(1000);                       // wait 1 second
+    one.obstacleEmitters(OFF);         // deactivate IR emitter LEDs
+    Serial.println("IR Emitters OFF"); // print data on serial monitor.
+    one.lcd2(" IR Emitters OFF ");     // print text on LCD line 2
+    delay(1000);                       // wait 1 second
+}
